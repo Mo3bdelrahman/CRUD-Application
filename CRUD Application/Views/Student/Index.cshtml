@@ -1,15 +1,51 @@
-﻿
+﻿@model List<Student>
 @{
-    Layout = null;
+    ViewData["Title"] = "Index";
 }
 
-<!DOCTYPE html>
+<h1>Students Index</h1>
+<div>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (Student std in Model)
+                {
+                    <tr>
+                        <th>@std.Id</th>
+                        <th>@std.Name</th>
+                        <th>@std.Age</th>
+                        <th>@std.Email</th>
+                        <th>@std.Department.Name</th>
+                        <th>
+                            <a action="Details" asp-controller="Student" asp-route-Id="@std.Id" class="btn btn-primary">Details</a>
+                            <a action="Update" asp-controller="Student" asp-route-Id="@std.Id" class="btn btn-success"> Update</a>
+                            <a action="Delete" asp-controller="Student" asp-route-Id="@std.Id" class="btn btn-danger">Delete</a>
+                            <a action="Show" asp-controller="Student" asp-route-Id="@std.Id" class="btn btn-info">Show</a>
+                        </th>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">No Students yet</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Create" asp-controller="Student" class="btn btn-outline-primary ">Create</a>
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-</body>
-</html>

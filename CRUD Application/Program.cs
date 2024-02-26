@@ -1,3 +1,6 @@
+using CRUD_Application.Models;
+using CRUD_Application.Repositories;
+
 namespace CRUD_Application
 {
     public class Program
@@ -8,6 +11,8 @@ namespace CRUD_Application
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IRepo<Student>,StudentRepo>();
+            builder.Services.AddScoped<IRepo<Department>,DepartmentRepo>();
 
             var app = builder.Build();
 
