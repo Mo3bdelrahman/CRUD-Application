@@ -25,11 +25,69 @@ namespace CRUD_Application.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Create(Student Student)
+        public async Task<IActionResult> Create(Student Student, IFormFile image)
         {
-            int res = studentRepo.Add(Student);
-            IActionResult actionResult = res !=0 ? RedirectToAction("Index") : RedirectToAction("Create");
+            if (Student != null)
+            {
+                studentRepo.Add(Student);
+
+                if (image != null)
+                {
+                    string fileexe = image.FileName.Split('.').Last();
+                    string img = $"{Student.Name}_{Student.Id}.{fileexe}";
+                    using (var fs = new FileStream($"wwwroot/Images/{img}", FileMode.Create))
+                    {
+                        await image.CopyToAsync(fs);
+                    }
+                    Student.ImagePath = img;
+                }
+                studentRepo.Update(Student);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Create");
+            }
+        }
+        public IActionResult Details(int Id)
+        {
+            Student model = studentRepo.GetById(Id);
+            IActionResult actionResult = model != null ? View(model) : BadRequest();
             return actionResult;
+        }
+        public IActionResult Edit(int Id)
+        {
+            IActionResult actionResult = BadRequest();
+            Student student = studentRepo.GetById(Id);
+            if(student != null)
+            {
+                var model = new StudentWithDepartmentsViewModel(student, departmentRepo.GetAll());
+                actionResult = View(model);
+            }
+            return actionResult;
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Student Student,int Id, IFormFile image)
+        {
+            if (image != null)
+            {
+                string fileexe = image.FileName.Split('.').Last();
+                string img = $"{Student.Name}_{Student.Id}.{fileexe}";
+                using (var fs = new FileStream($"wwwroot/Images/{img}", FileMode.Create))
+                {
+                    await image.CopyToAsync(fs);
+                }
+                Student.ImagePath = img;
+            }
+            Student.Id = Id;
+            int res = studentRepo.Update(Student);
+            IActionResult actionResult = res>0? RedirectToAction("Index") : RedirectToAction("Edit");
+            return actionResult;
+        }
+        public IActionResult Delete(int Id)
+        {
+            int res = studentRepo.DeleteById(Id);
+            return RedirectToAction("Index");
         }
     }
 }

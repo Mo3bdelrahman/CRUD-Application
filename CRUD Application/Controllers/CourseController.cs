@@ -4,20 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Application.Controllers
 {
-    public class DepartmentController : Controller
+    public class CourseController : Controller
     {
-        IRepo<Department> departmentRepo;
-        public DepartmentController(IRepo<Department> _departmentRepo)
+        IRepo<Course> courseRepo;
+        public CourseController(IRepo<Course> _courseRepo)
         {
-            departmentRepo = _departmentRepo;
+            courseRepo = _courseRepo;
         }
         public IActionResult Index()
         {
-            return View(departmentRepo.GetAll());
+            return View(courseRepo.GetAll());
         }
         public IActionResult Details(int Id)
         {
-            Department model = departmentRepo.GetById(Id);
+            Course model = courseRepo.GetById(Id);
             IActionResult actionResult = model != null ? View(model) : BadRequest();
             return actionResult;
         }
@@ -26,29 +26,29 @@ namespace CRUD_Application.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Department Department)
+        public IActionResult Create(Course Course)
         {
-            int res = departmentRepo.Add(Department);
+            int res = courseRepo.Add(Course);
             IActionResult actionResult = res > 0 ? RedirectToAction("Index") : RedirectToAction("Create");
             return actionResult;
         }
 
         public IActionResult Edit(int Id)
         {
-            Department model = departmentRepo.GetById(Id);
+            Course model = courseRepo.GetById(Id);
             IActionResult actionResult = model != null ? View(model) : BadRequest();
             return actionResult;
         }
         [HttpPost]
-        public IActionResult Edit(Department Department)
+        public IActionResult Edit(Course Course)
         {
-            int res = departmentRepo.Update(Department);
+            int res = courseRepo.Update(Course);
             IActionResult actionResult = res > 0 ? RedirectToAction("Index") : RedirectToAction("Edit");
             return actionResult;
         }
         public IActionResult Delete(int Id)
         {
-            int res = departmentRepo.DeleteById(Id);
+            int res = courseRepo.DeleteById(Id);
             return RedirectToAction("Index");
         }
     }

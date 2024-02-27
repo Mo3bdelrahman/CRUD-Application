@@ -1,5 +1,7 @@
 using CRUD_Application.Models;
+using CRUD_Application.Models.Data;
 using CRUD_Application.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CRUD_Application
 {
@@ -11,9 +13,13 @@ namespace CRUD_Application
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(d =>
+            {
+                d.UseSqlServer("Data Source=.;Initial Catalog=EFApplication;Integrated Security=True;Trust Server Certificate=True");
+            });
             builder.Services.AddScoped<IRepo<Student>,StudentRepo>();
             builder.Services.AddScoped<IRepo<Department>,DepartmentRepo>();
-
+            builder.Services.AddScoped<IRepo<Course>,CourseRepo>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

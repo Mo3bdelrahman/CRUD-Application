@@ -1,0 +1,29 @@
+﻿@model Student
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-5">
+    <h1>Student Details</h1>
+    <div class="row">
+        <div class="col-md-6 offset-md-3 mt-4">
+            <div class="card">
+                <img src="/Images/@Model.ImagePath" class="card-img-top" alt="Student Image" style="width:100%; height: auto;">
+                <div class="card-body">
+                    <h5 class="card-title">Student Information</h5>
+                    <p class="card-text"><strong>ID:</strong> @Model?.Id</p>
+                    <p class="card-text"><strong>Name:</strong> @Model?.Name</p>
+                    <p class="card-text"><strong>Age:</strong> @Model?.Age</p>
+                    <p class="card-text"><strong>Email:</strong> @Model?.Email</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Student" class="btn btn-warning">Back to List</a>
+    <a asp-action="Edit" asp-controller="Student" asp-route-Id="@Model?.Id" class="btn btn-success"> Edit</a>
+    <a asp-action="Delete" asp-controller="Student" asp-route-Id="@Model?.Id" class="btn btn-danger">Delete</a>
+</div>
+

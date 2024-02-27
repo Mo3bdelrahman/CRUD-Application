@@ -1,6 +1,6 @@
 ﻿@model List<Department>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Departments Index";
 }
 
 <h1>Departments Index</h1>
@@ -23,9 +23,11 @@
                         <td>@dept.Id</td>
                         <td>@dept.Name</td>
                         <th>
-                            <a action="Details" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-primary">Details</a>
-                            <a action="Update" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-success"> Update</a>
-                            <a action="Delete" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-danger">Delete</a>
+                            <a asp-action="Details" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-primary">Details</a>
+                            <a asp-action="Edit" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-success">Edit</a>
+                            <a asp-action="Delete" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-danger">Delete</a>
+                            <a asp-action="Show" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-info">Show Courses</a>
+                            <a asp-action="Manage" asp-controller="Department" asp-route-Id="@dept.Id" class="btn btn-secondary">Manage Courses</a>
                         </th>
                     </tr>
                 }

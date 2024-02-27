@@ -7,9 +7,9 @@ namespace CRUD_Application.Repositories
     {
         ApplicationDbContext dbContext;
 
-        public DepartmentRepo()
+        public DepartmentRepo(ApplicationDbContext _dbContext)
         {
-            dbContext = new ApplicationDbContext();
+            dbContext = _dbContext;
         }
         public int Add(Department entity)
         {

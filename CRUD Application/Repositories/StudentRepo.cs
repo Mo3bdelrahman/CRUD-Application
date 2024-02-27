@@ -8,9 +8,9 @@ namespace CRUD_Application.Repositories
     {
         ApplicationDbContext dbContext;
 
-        public StudentRepo()
+        public StudentRepo(ApplicationDbContext _dbContext)
         {
-            dbContext = new ApplicationDbContext();
+            dbContext = _dbContext;
         }
         public int Add(Student entity)
         {

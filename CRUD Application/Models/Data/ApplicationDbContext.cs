@@ -8,6 +8,11 @@ namespace CRUD_Application.Models.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<StudentCourse> studentCourses { get; set; }
+        public ApplicationDbContext() { }
+        public ApplicationDbContext(DbContextOptions dbContextOptions):base(dbContextOptions)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=EFApplication;Integrated Security=True;Trust Server Certificate=True");
