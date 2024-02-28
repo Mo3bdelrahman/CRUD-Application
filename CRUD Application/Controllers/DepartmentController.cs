@@ -1,5 +1,5 @@
-﻿using CRUD_Application.Models;
-using CRUD_Application.Repositories;
+﻿using CRUD_Application.Interfaces;
+using CRUD_Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Application.Controllers
@@ -50,6 +50,12 @@ namespace CRUD_Application.Controllers
         {
             int res = departmentRepo.DeleteById(Id);
             return RedirectToAction("Index");
+        }
+        public IActionResult Show(int Id)
+        {
+            Department model = departmentRepo.GetById(Id);
+            IActionResult actionResult = model != null ? View(model) : BadRequest();
+            return actionResult;
         }
     }
 }

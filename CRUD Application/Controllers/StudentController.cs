@@ -1,5 +1,5 @@
-﻿using CRUD_Application.Models;
-using CRUD_Application.Repositories;
+﻿using CRUD_Application.Interfaces;
+using CRUD_Application.Models;
 using CRUD_Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +17,11 @@ namespace CRUD_Application.Controllers
         }
         public IActionResult Index()
         {
-            return View(studentRepo.GetAll());
+            return View(studentRepo.GetAllWith());
         }
         public IActionResult Create()
         {    
-            var model = new StudentWithDepartmentsViewModel(departmentRepo.GetAll());
+            var model = new StudentWithDepartmentsViewModel(departmentRepo.GetAllWith());
             return View(model);
         }
         [HttpPost]
@@ -61,7 +61,7 @@ namespace CRUD_Application.Controllers
             Student student = studentRepo.GetById(Id);
             if(student != null)
             {
-                var model = new StudentWithDepartmentsViewModel(student, departmentRepo.GetAll());
+                var model = new StudentWithDepartmentsViewModel(student, departmentRepo.GetAllWith());
                 actionResult = View(model);
             }
             return actionResult;

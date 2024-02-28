@@ -1,5 +1,5 @@
-﻿using CRUD_Application.Models;
-using CRUD_Application.Repositories;
+﻿using CRUD_Application.Interfaces;
+using CRUD_Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Application.Controllers
